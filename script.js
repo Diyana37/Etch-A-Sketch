@@ -1,10 +1,21 @@
-let gridSize = Number(prompt("Please enter grid size"));
-
+const maxSize = 300;
+const multiplicationFactor = 2;
+let gridSize = 32;
 let mode = "normal";
 let bgClassNames = ["normal-bg", "modern-bg"];
 
 function createGrid(gridSize) {
-  const parent = document.querySelector(".grid-container");
+  let parent = document.querySelector(".grid-container");
+  const body = document.querySelector(".body");
+  const separator = document.querySelector(".separator");
+
+  if (parent) {
+    parent.remove();
+  }
+  
+  parent = document.createElement("div");
+  parent.classList.add("grid-container");
+  body.insertBefore(parent, separator);
 
   for (let i = 0; i < gridSize; i++) {
     let row = document.createElement("div");
@@ -12,6 +23,8 @@ function createGrid(gridSize) {
 
     for (let j = 0; j < gridSize; j++) {
       let column = document.createElement("div");
+      let cellSize = maxSize / gridSize * multiplicationFactor;
+      column.setAttribute("style", `width: ${cellSize}px; height: ${cellSize}px;`);
       column.classList.add("matrix-column");
       row.appendChild(column);
     }
@@ -40,6 +53,20 @@ function initializeGridHover() {
 }
 
 function initializeButtonMode() {
+  let smallBtn = document.querySelector(".small");
+  smallBtn.addEventListener("click", function (e){
+    gridSize = 16;
+    createGrid(gridSize);
+    initializeGridHover();
+  });
+
+  let mediumBtn = document.querySelector(".medium");
+  mediumBtn.addEventListener("click", function (e){
+    gridSize = 32;
+    createGrid(gridSize);
+    initializeGridHover();
+  });
+  
   let normalBtn = document.querySelector(".normal");
   normalBtn.addEventListener("click", function (e) {
     mode = "normal";
@@ -58,6 +85,6 @@ function removeClassNames(targetCell) {
   }
 }
 
+initializeButtonMode();
 createGrid(gridSize);
 initializeGridHover();
-initializeButtonMode();

@@ -1,11 +1,24 @@
+.grid-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 25px;
+}
+
+.body {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+
 .matrix-row {
     display: flex;
 }
 
 .matrix-column {
-    width: 30px;
-    height: 30px;
-    border: 2px solid blueviolet;
+    border: 0.5px solid blueviolet;
 }
 
 .normal-bg {
@@ -14,4 +27,8 @@
 
 .modern-bg {
     background-color: blue;
+}
+
+.separator {
+    display: none;
 }
