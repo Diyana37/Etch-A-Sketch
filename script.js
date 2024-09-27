@@ -1,5 +1,4 @@
-const maxSize = 300;
-const multiplicationFactor = 2;
+const maxSize = 600;
 let gridSize = 32;
 let mode = "normal";
 let bgClassNames = ["normal-bg", "modern-bg"];
@@ -12,7 +11,7 @@ function createGrid(gridSize) {
   if (parent) {
     parent.remove();
   }
-  
+
   parent = document.createElement("div");
   parent.classList.add("grid-container");
   body.insertBefore(parent, separator);
@@ -23,8 +22,11 @@ function createGrid(gridSize) {
 
     for (let j = 0; j < gridSize; j++) {
       let column = document.createElement("div");
-      let cellSize = maxSize / gridSize * multiplicationFactor;
-      column.setAttribute("style", `width: ${cellSize}px; height: ${cellSize}px;`);
+      let cellSize = maxSize / gridSize;
+      column.setAttribute(
+        "style",
+        `width: ${cellSize}px; height: ${cellSize}px;`
+      );
       column.classList.add("matrix-column");
       row.appendChild(column);
     }
@@ -47,26 +49,48 @@ function initializeGridHover() {
         targetCell.classList.add("normal-bg");
       } else if (mode === "modern") {
         targetCell.classList.add("modern-bg");
+      } else if (mode === "random") {
+        let randomColors = randomRGB();
+        targetCell.setAttribute("style", randomColors);
       }
     });
   }
 }
 
 function initializeButtonMode() {
+  let modal = document.querySelector(".custom-size-modal");
+  let customSizeModal = new bootstrap.Modal(modal);
+
   let smallBtn = document.querySelector(".small");
-  smallBtn.addEventListener("click", function (e){
+  smallBtn.addEventListener("click", function (e) {
     gridSize = 16;
     createGrid(gridSize);
     initializeGridHover();
   });
 
   let mediumBtn = document.querySelector(".medium");
-  mediumBtn.addEventListener("click", function (e){
+  mediumBtn.addEventListener("click", function (e) {
     gridSize = 32;
     createGrid(gridSize);
     initializeGridHover();
   });
-  
+
+  let customBtn = document.querySelector(".custom");
+  customBtn.addEventListener("click", function (e) {
+    customSizeModal.show();
+  });
+
+  let submitBtn = document.querySelector(".submit");
+  submitBtn.addEventListener("click", function (e) {
+    let customSize = document.querySelector(".size").value;
+
+    gridSize = Number(customSize);
+    createGrid(gridSize);
+    initializeGridHover();
+
+    customSizeModal.hide();
+  });
+
   let normalBtn = document.querySelector(".normal");
   normalBtn.addEventListener("click", function (e) {
     mode = "normal";
@@ -76,6 +100,11 @@ function initializeButtonMode() {
   modernBtn.addEventListener("click", function (e) {
     mode = "modern";
   });
+
+  let randomBtn = document.querySelector(".random");
+  randomBtn.addEventListener("click", function (e) {
+    mode = "random";
+  });
 }
 
 function removeClassNames(targetCell) {
@@ -83,6 +112,22 @@ function removeClassNames(targetCell) {
     const element = bgClassNames[i];
     targetCell.classList.remove(element);
   }
+}
+
+function randomRGB() {
+  let output = "";
+  let randomRed = getRandomInt(256);
+  let randomGreen = getRandomInt(256);
+  let randomBlue = getRandomInt(256);
+
+  let cellSize = maxSize / gridSize;
+  output = `background-color: rgb(${randomRed}, ${randomGreen}, ${randomBlue}); 
+  width: ${cellSize}px; height: ${cellSize}px;`;
+  return output;
+}
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
 }
 
 initializeButtonMode();
