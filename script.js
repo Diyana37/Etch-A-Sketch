@@ -82,7 +82,24 @@ function initializeButtonMode() {
 
   let submitBtn = document.querySelector(".submit");
   submitBtn.addEventListener("click", function (e) {
-    let customSize = document.querySelector(".size").value;
+    let customValue = document.querySelector(".size");
+    let customSize = customValue.value;
+    
+    let validationLabel = document.querySelector(".valid-size");
+    if (isNaN(customSize)) {
+      validationLabel.textContent = "Please enter a number!";
+      customValue.value = "";
+      return;
+    }
+
+    if (!(customSize >= 1 && customSize <= 100)){
+      validationLabel.textContent = "Please enter a valid number!";
+      customValue.value = "";
+      return;
+    }
+
+    validationLabel.textContent = "";
+    customValue.value = "";
 
     gridSize = Number(customSize);
     createGrid(gridSize);

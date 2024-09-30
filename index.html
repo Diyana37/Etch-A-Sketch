@@ -24,8 +24,13 @@
             </h5>
           </div>
           <div class="modal-body">
-            <input type="text" class="size" />
-            <div class="modal-footer"></div>
+            <input
+              type="text"
+              class="form-control size"
+              id="validationCustom05"
+              required
+            />
+            <div class="valid-size"></div>
             <button
               type="button"
               class="btn btn-success submit"
@@ -47,18 +52,18 @@
     </div>
 
     <div class="btn-mode-container">
-      <button type="button" class="btn btn-secondary normal">Normal</button>
+      <button type="button" class="btn btn-success normal">Normal</button>
       <button type="button" class="btn btn-primary modern">Modern</button>
-      <button type="button" class="btn btn-primary random">Random</button>
+      <button type="button" class="btn btn-danger random">Random</button>
     </div>
 
     <div class="grid-container"></div>
     <div class="separator"></div>
 
     <div class="btn-size-container">
-      <button type="button" class="btn btn-secondary small">Small</button>
+      <button type="button" class="btn btn-success small">Small</button>
       <button type="button" class="btn btn-primary medium">Medium</button>
-      <button type="button" class="btn btn-primary custom">Custom</button>
+      <button type="button" class="btn btn-danger custom">Custom</button>
     </div>
 
     <script
@@ -66,7 +71,7 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    
+
     <script src="script.js"></script>
   </body>
 </html>
